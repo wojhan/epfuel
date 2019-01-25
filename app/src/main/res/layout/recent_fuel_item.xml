@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/recent_fuel_item_label"
+        android:background="#c9c9c9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000"
+        android:text="Benzyna" />
+
+    <TextView
+        android:id="@+id/recent_fuel_item_avg_consumption_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0,255 l/100km"
+        android:layout_below="@id/recent_fuel_item_label" />
+
+    <TextView
+        android:id="@+id/recent_fuel_item_last_consumption_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0,39 l/100km"
+        android:layout_below="@id/recent_fuel_item_avg_consumption_value" />
+
+    <TextView
+        android:id="@+id/recent_fuel_item_last_price_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="4,73 zł"
+        android:layout_below="@id/recent_fuel_item_last_consumption_value" />
+
+    <TextView
+        android:id="@+id/recent_fuel_item_avg_consumption_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Średnie spalanie paliwa"
+        android:layout_toRightOf="@id/recent_fuel_item_avg_consumption_value"
+        android:layout_below="@id/recent_fuel_item_label"
+        android:textAlignment="viewEnd" />
+
+    <TextView
+        android:id="@+id/recent_fuel_item_last_consumption_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ostatnie spalanie"
+        android:layout_toRightOf="@id/recent_fuel_item_last_consumption_value"
+        android:layout_below="@id/recent_fuel_item_avg_consumption_value"
+        android:textAlignment="viewEnd" />
+
+    <TextView
+        android:id="@+id/recent_fuel_item_last_price_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ostatnia cena paliwa"
+        android:layout_below="@id/recent_fuel_item_last_consumption_label"
+        android:layout_toRightOf="@id/recent_fuel_item_last_price_value"
+        android:textAlignment="viewEnd" />
+
+    <TextView
+        android:id="@+id/recent_fuel_item_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="2017-03-24 672 dni temu"
+        android:layout_below="@id/recent_fuel_item_last_price_label"
+        android:textAlignment="viewEnd" />
+
+</RelativeLayout>

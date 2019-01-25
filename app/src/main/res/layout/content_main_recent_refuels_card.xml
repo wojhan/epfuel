@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_content_last_refuels_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/main_content_last_refuels_header">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/main_content_last_refuels_first_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#c9c9c9"
+            android:text="grudzień 2018" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/main_content_last_refuels_first_month_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/main_content_last_refuels_first_month" />
+
+        <TextView
+            android:id="@+id/main_content_last_refuels_second_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/main_content_last_refuels_first_month_recyclerview"
+            android:background="#c9c9c9"
+            android:text="listopad 2018" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/main_content_last_refuels_second_month_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/main_content_last_refuels_second_month" />
+    </RelativeLayout>
+</android.support.v7.widget.CardView>
