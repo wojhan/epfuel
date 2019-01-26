@@ -1,5 +1,6 @@
 package com.github.wojhan.epfuel;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -24,6 +25,8 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private Spinner vehicleSpinner;
+
+    private static int ADD_NEW_REFUEL_ACTIVITY = 1;
 
     private RecyclerView mRecentFuelRecyclerView;
     private RecyclerView mRecentRefuelsFirstMonthRecyclerView;
@@ -195,8 +198,9 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
+        if (id == R.id.drawer_add_refuel) {
+            Intent intent = new Intent(this, AddRefuelActivity.class);
+            startActivityForResult(intent, ADD_NEW_REFUEL_ACTIVITY);
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {

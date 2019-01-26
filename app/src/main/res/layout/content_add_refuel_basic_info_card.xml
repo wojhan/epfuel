@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView android:id="@+id/add_refuel_basic_container"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/add_refuel_vehicle_spinner">
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="2">
+
+        <TextView
+            android:id="@+id/add_refuel_counter_label"
+            android:layout_column="0"
+            android:text="Licznik"
+            android:layout_gravity="fill_horizontal|center_vertical"
+            android:layout_columnWeight="1" />
+
+        <EditText
+            android:id="@+id/add_refuel_counter_value"
+            android:layout_column="1"
+            android:hint="165275 km"
+            android:layout_gravity="fill_horizontal|center_vertical"
+            android:layout_columnWeight="1" />
+
+        <Spinner
+            android:id="@+id/add_refuel_fuel_type"
+            android:layout_column="0"
+            android:layout_gravity="fill_horizontal|center_vertical"
+            android:layout_columnWeight="3" />
+
+        <EditText
+            android:id="@+id/add_refuel_fueled_value"
+            android:layout_column="1"
+            android:layout_gravity="fill_horizontal|center_vertical"
+            android:layout_columnWeight="1"
+            android:hint="0.00 l" />
+
+        <TextView
+            android:id="@+id/add_refuel_price_for_liter_label"
+            android:layout_gravity="fill_horizontal|center_vertical"
+            android:layout_columnWeight="3"
+            android:text="Cena za litr" />
+
+        <EditText
+            android:id="@+id/add_refuel_price_for_liter_value"
+            android:layout_gravity="fill_horizontal|center_vertical"
+            android:layout_columnWeight="1"
+            android:layout_column="1"
+            android:hint="0.00 zł/l" />
+
+        <TextView
+            android:id="@+id/add_refuel_price_label"
+            android:layout_gravity="fill_horizontal|center_vertical"
+            android:layout_columnWeight="3"
+            android:text="Koszt" />
+
+        <EditText
+            android:id="@+id/add_refuel_price_value"
+            android:layout_column="1"
+            android:layout_gravity="fill_horizontal|center_vertical"
+            android:layout_columnWeight="1"
+            android:hint="0.00 zł" />
+
+        <TextView
+            android:id="@+id/add_refuel_date_label"
+            android:layout_gravity="fill_horizontal|center_vertical"
+            android:layout_columnWeight="3"
+            android:text="Data" />
+
+        <EditText
+            android:id="@+id/add_refuel_date_value"
+            android:layout_gravity="fill_horizontal|center_vertical"
+            android:layout_column="1"
+            android:layout_columnWeight="1"
+            android:text="26-01-2019" />
+
+        <CheckBox
+            android:id="@+id/add_refuel_is_full"
+            android:layout_gravity="fill"
+            android:layout_columnSpan="2"
+            android:text="Tankowanie do pełna" />
+
+    </GridLayout>
+
+</android.support.v7.widget.CardView>
