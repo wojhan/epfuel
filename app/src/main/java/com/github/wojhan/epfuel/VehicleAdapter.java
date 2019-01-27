@@ -6,17 +6,19 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.github.wojhan.epfuel.db.Car;
+
 import java.util.List;
 
 public class VehicleAdapter extends BaseAdapter {
 
-    private List<Vehicle> mVehicleList;
+    private List<Car> mVehicleList;
 
     public VehicleAdapter() {
 
     }
 
-    public VehicleAdapter(List<Vehicle> vehicleList) {
+    public VehicleAdapter(List<Car> vehicleList) {
         mVehicleList = vehicleList;
     }
 
@@ -50,7 +52,7 @@ public class VehicleAdapter extends BaseAdapter {
             holder = (VehicleHolder)convertView.getTag();
         }
 
-        Vehicle vehicle = mVehicleList.get(position);
+        Car vehicle = mVehicleList.get(position);
         holder.mName.setText(vehicle.getName());
 
         return convertView;

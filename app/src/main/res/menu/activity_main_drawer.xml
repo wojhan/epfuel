@@ -9,9 +9,9 @@
             android:icon="@drawable/ic_menu_camera"
             android:title="Dodaj" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/drawer_cars"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:title="Samochody" />
         <item
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_menu_slideshow"

@@ -8,37 +8,9 @@
     tools:context=".MainActivity"
     tools:showIn="@layout/app_bar_main">
 
-    <Spinner
-        android:id="@+id/vehicle_spinner"
+    <FrameLayout
+        android:id="@+id/main_content_framelayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:id="@+id/main_content_fuel_header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/vehicle_spinner"
-        android:text="Paliwo" />
-
-    <include layout="@layout/content_main_fuel_card" />
-
-    <TextView
-        android:id="@+id/main_content_last_refuels_header"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/main_content_fuel_container"
-        android:text="Ostatnie wpisy" />
-
-    <include layout="@layout/content_main_recent_refuels_card" />
-
-    <TextView
-        android:id="@+id/main_content_summary_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/main_content_last_refuels_container"
-        android:text="Podsumowanie" />
-
-    <include layout="@layout/content_main_summary_card" />
-
+        android:layout_height="match_parent" />
 
 </RelativeLayout>
