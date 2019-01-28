@@ -17,4 +17,19 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="CardView.Default" parent="CardView.Light">
+        <item name="cardCornerRadius">@dimen/card_radius</item>
+        <item name="android:paddingTop">@dimen/card_vertical_padding</item>
+        <item name="android:paddingBottom">@dimen/card_vertical_padding</item>
+        <item name="android:paddingLeft">@dimen/card_horizontal_padding</item>
+        <item name="android:paddingRight">@dimen/card_horizontal_padding</item>
+        <!--<item name="android:layout_margin">@dimen/card_margin</item>-->
+    </style>
+
+    <style name="AboveCardHeader">
+        <item name="android:layout_margin">@dimen/above_card_header_margin</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>

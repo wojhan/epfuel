@@ -8,18 +8,20 @@ import android.widget.TextView;
 
 import com.github.wojhan.epfuel.db.Car;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class VehicleAdapter extends BaseAdapter {
 
-    private List<Car> mVehicleList;
+    private List<Object> mVehicleList;
 
     public VehicleAdapter() {
 
     }
 
     public VehicleAdapter(List<Car> vehicleList) {
-        mVehicleList = vehicleList;
+        mVehicleList = new ArrayList<Object>(vehicleList);
+        mVehicleList.add(0, "Wybierz pojazd");
     }
 
     @Override
@@ -47,18 +49,46 @@ public class VehicleAdapter extends BaseAdapter {
 
             holder = new VehicleHolder();
             holder.mName = convertView.findViewById(R.id.vehicle_spinner_name);
+            holder.mModel = convertView.findViewById(R.id.vehicle_spinner_model);
             convertView.setTag(holder);
         } else {
             holder = (VehicleHolder)convertView.getTag();
         }
 
-        Car vehicle = mVehicleList.get(position);
-        holder.mName.setText(vehicle.getName());
+        if (position > 0) {
+            Car vehicle = (Car) mVehicleList.get(position);
+            holder.mName.setText(vehicle.getName());
+            holder.mModel.setText(vehicle.getMake() + " " + vehicle.getModel());
+        } else {
+            holder.mName.setText("Pojazd");
+            holder.mModel.setText("Wybierz pojazd");
 
+        }
         return convertView;
     }
 
     class VehicleHolder {
         private TextView mName;
+        private TextView mModel;
+    }
+
+    @Override
+    public View getDropDownView(int position, View convertView, ViewGroup parent) {
+        View v = null;
+
+        // If this is the initial dummy entry, make it hidden
+        if (position == 0) {
+            TextView tv = new TextView(parent.getContext());
+            tv.setHeight(0);
+            tv.setVisibility(View.GONE);
+            v = tv;
+        } else {
+            // Pass convertView as null to prevent reuse of special case views
+            v = super.getDropDownView(position, null, parent);
+        }
+
+        // Hide scroll bar because it appears sometimes unnecessarily, this does not prevent scrolling
+        parent.setVerticalScrollBarEnabled(false);
+        return v;
     }
 }

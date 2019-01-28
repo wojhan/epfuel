@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
+import com.github.wojhan.epfuel.db.Refuel;
 
 import java.text.DateFormat;
 import java.util.List;

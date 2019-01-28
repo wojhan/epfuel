@@ -24,6 +24,7 @@ import android.widget.Spinner;
 
 import com.github.wojhan.epfuel.db.Car;
 import com.github.wojhan.epfuel.db.FuelDatabase;
+import com.github.wojhan.epfuel.db.Refuel;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -105,11 +106,29 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        if (id == R.id.drawer_home) {
+            MainFragment newFragment = new MainFragment();
+
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+            transaction.replace(R.id.main_content_framelayout, newFragment);
+            transaction.addToBackStack(null);
+
+            transaction.commit();
+        }
         if (id == R.id.drawer_add_refuel) {
             Intent intent = new Intent(this, AddRefuelActivity.class);
             startActivityForResult(intent, ADD_NEW_REFUEL_ACTIVITY);
-        } else if (id == R.id.drawer_cars) {
+        } else if (id == R.id.drawer_refuel_list) {
+            RefuelListFragment newFragment = new RefuelListFragment();
 
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+            transaction.replace(R.id.main_content_framelayout, newFragment);
+            transaction.addToBackStack(null);
+
+            transaction.commit();
+        } else if (id == R.id.drawer_cars) {
             UserCarsFragment newFragment = new UserCarsFragment();
 
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -118,14 +137,6 @@ public class MainActivity extends AppCompatActivity
             transaction.addToBackStack(null);
 
             transaction.commit();
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -155,6 +166,29 @@ public class MainActivity extends AppCompatActivity
 //                });
 //            }
 //        }
+        if (requestCode == ADD_NEW_REFUEL_ACTIVITY) {
+            if (resultCode == RESULT_OK) {
+                int carId = data.getExtras().getInt("carId");
+                int counter = data.getExtras().getInt("counter");
+                float fuelAmount = data.getExtras().getFloat("fuelAmount");
+                float priceForLiter = data.getExtras().getFloat("priceForLiter");
+                String date = data.getExtras().getString("date");
+
+                final Refuel refuel = new Refuel();
+                refuel.setAmount(fuelAmount);
+                refuel.setCarId(carId);
+                refuel.setCounter(counter);
+                refuel.setDate(date);
+                refuel.setPriceForLiter(priceForLiter);
+
+                AsyncTask.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        db.fuelDao().insert(refuel);
+                    }
+                });
+            }
+        }
         super.onActivityResult(requestCode, resultCode, data);
     }
 }

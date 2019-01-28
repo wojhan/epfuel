@@ -3,6 +3,7 @@
     android:id="@+id/main_content_summary_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:theme="@style/CardView.Default"
     android:layout_below="@id/main_content_summary_label">
 
     <RelativeLayout

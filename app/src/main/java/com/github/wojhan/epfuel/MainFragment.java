@@ -3,6 +3,8 @@ package com.github.wojhan.epfuel;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.arch.persistence.room.Room;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -22,6 +24,8 @@ public class MainFragment extends Fragment {
 
     private FuelDatabase db;
 
+    private SharedPreferences preferences;
+
     public static MainFragment newInstance() {
         return new MainFragment();
     }
@@ -40,6 +44,8 @@ public class MainFragment extends Fragment {
 
         mViewModel.getInformation();
 
+        preferences = getActivity().getSharedPreferences("epfuel", Context.MODE_PRIVATE);
+
         db = Room.databaseBuilder(getContext(),
                 FuelDatabase.class, "fuel").build();
 
@@ -47,7 +53,7 @@ public class MainFragment extends Fragment {
 
             @Override
             public void onChanged(@Nullable List<Car> cars) {
-                mViewModel.getCars(cars);
+                mViewModel.getCars(cars, preferences);
             }
         });
         // TODO: Use the ViewModel

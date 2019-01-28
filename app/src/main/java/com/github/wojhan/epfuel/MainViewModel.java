@@ -1,12 +1,15 @@
 package com.github.wojhan.epfuel;
 
 import android.arch.lifecycle.ViewModel;
+import android.content.SharedPreferences;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Spinner;
 
 import com.github.wojhan.epfuel.db.Car;
+import com.github.wojhan.epfuel.db.Refuel;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -37,10 +40,28 @@ public class MainViewModel extends ViewModel {
     private List<Refuel> recentRefuelsFirstMonth;
     private List<Refuel> recentRefuelsSecondMonth;
 
-    public void getCars(List<Car> cars) {
+    private SharedPreferences preferences;
+
+
+    public void getCars(List<Car> cars, final SharedPreferences preferences) {
         mVehicleAdapter = new VehicleAdapter(cars);
         vehicleSpinner.setAdapter(mVehicleAdapter);
 
+        vehicleSpinner.setSelection(preferences.getInt("chosenCarPosition", 0), true);
+
+        vehicleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                SharedPreferences.Editor preferenceEditor = preferences.edit();
+                preferenceEditor.putInt("chosenCarPosition", position);
+                preferenceEditor.commit();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     public void getInformation() {
@@ -78,37 +99,37 @@ public class MainViewModel extends ViewModel {
         mRecentFuelRecyclerView.setLayoutManager(mRecentFuelLayout);
         mRecentFuelRecyclerView.setAdapter(mRecentFuelAdapter);
 
-        Refuel r3 = new Refuel();
-        r3.setAmount(19.14f);
-        r3.setPriceForLiter(2.31f);
-        r3.setDate(new Date());
-
-        Refuel r4 = new Refuel();
-        r4.setAmount(24.99f);
-        r4.setPriceForLiter(2.31f);
-        r4.setDate(new Date());
-
-        Refuel r5 = new Refuel();
-        r5.setAmount(23.94f);
-        r5.setPriceForLiter(2.33f);
-        r5.setDate(new Date());
-
-        Refuel r6 = new Refuel();
-        r6.setAmount(25.33f);
-        r6.setPriceForLiter(2.36f);
-        r6.setDate(new Date());
-
-        Refuel r7 = new Refuel();
-        r7.setAmount(25.7f);
-        r7.setPriceForLiter(2.39f);
-        r7.setDate(new Date());
+//        Refuel r3 = new Refuel();
+//        r3.setAmount(19.14f);
+//        r3.setPriceForLiter(2.31f);
+//        //r3.setDate(new Date());
+//
+//        Refuel r4 = new Refuel();
+//        r4.setAmount(24.99f);
+//        r4.setPriceForLiter(2.31f);
+//        //r4.setDate(new Date());
+//
+//        Refuel r5 = new Refuel();
+//        r5.setAmount(23.94f);
+//        r5.setPriceForLiter(2.33f);
+//        //r5.setDate(new Date());
+//
+//        Refuel r6 = new Refuel();
+//        r6.setAmount(25.33f);
+//        r6.setPriceForLiter(2.36f);
+//        //r6.setDate(new Date());
+//
+//        Refuel r7 = new Refuel();
+//        r7.setAmount(25.7f);
+//        r7.setPriceForLiter(2.39f);
+//        //r7.setDate(new Date());
 
         recentRefuelsFirstMonth = new ArrayList<>();
-        recentRefuelsFirstMonth.add(r3);
-        recentRefuelsFirstMonth.add(r4);
-        recentRefuelsFirstMonth.add(r5);
-        recentRefuelsFirstMonth.add(r6);
-        recentRefuelsFirstMonth.add(r7);
+//        recentRefuelsFirstMonth.add(r3);
+//        recentRefuelsFirstMonth.add(r4);
+//        recentRefuelsFirstMonth.add(r5);
+//        recentRefuelsFirstMonth.add(r6);
+//        recentRefuelsFirstMonth.add(r7);
 
         recentRefuelsSecondMonth = new ArrayList<>();
         recentRefuelsSecondMonth.addAll(recentRefuelsFirstMonth);
