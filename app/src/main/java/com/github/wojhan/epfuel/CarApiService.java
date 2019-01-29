@@ -7,7 +7,7 @@ import retrofit2.http.Query;
 public interface CarApiService {
     String BASE_URL = "https://www.carqueryapi.com/api/0.3/";
 
-    @GET("?cmd=getMakes")
+    @GET("?cmd=getMakes&sold_in_us=1&sold_in_us=0")
     Call<MakeList> getMakes();
 
     @GET("?cmd=getModels")

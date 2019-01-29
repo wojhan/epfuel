@@ -22,7 +22,8 @@
             android:layout_column="1"
             android:hint="165275 km"
             android:layout_gravity="fill_horizontal|center_vertical"
-            android:layout_columnWeight="1" />
+            android:layout_columnWeight="1"
+            android:inputType="numberSigned" />
 
         <Spinner
             android:id="@+id/add_refuel_fuel_type"
@@ -35,7 +36,8 @@
             android:layout_column="1"
             android:layout_gravity="fill_horizontal|center_vertical"
             android:layout_columnWeight="1"
-            android:hint="0.00 l" />
+            android:hint="0.00 l"
+            android:inputType="numberDecimal" />
 
         <TextView
             android:id="@+id/add_refuel_price_for_liter_label"
@@ -48,7 +50,8 @@
             android:layout_gravity="fill_horizontal|center_vertical"
             android:layout_columnWeight="1"
             android:layout_column="1"
-            android:hint="0.00 zł/l" />
+            android:hint="0.00 zł/l"
+            android:inputType="numberDecimal" />
 
         <TextView
             android:id="@+id/add_refuel_price_label"
@@ -61,7 +64,8 @@
             android:layout_column="1"
             android:layout_gravity="fill_horizontal|center_vertical"
             android:layout_columnWeight="1"
-            android:hint="0.00 zł" />
+            android:hint="0.00 zł"
+            android:inputType="date" />
 
         <TextView
             android:id="@+id/add_refuel_date_label"
@@ -74,7 +78,7 @@
             android:layout_gravity="fill_horizontal|center_vertical"
             android:layout_column="1"
             android:layout_columnWeight="1"
-            android:text="26-01-2019" />
+            android:focusable="false" />
 
         <CheckBox
             android:id="@+id/add_refuel_is_full"

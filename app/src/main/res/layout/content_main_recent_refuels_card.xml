@@ -17,6 +17,12 @@
             android:background="#c9c9c9"
             android:text="grudzień 2018" />
 
+        <TextView
+            android:id="@+id/main_content_last_refuels_first_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/main_content_last_refuels_first_month" />
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/main_content_last_refuels_first_month_recyclerview"
             android:layout_width="match_parent"
@@ -30,6 +36,12 @@
             android:layout_below="@id/main_content_last_refuels_first_month_recyclerview"
             android:background="#c9c9c9"
             android:text="listopad 2018" />
+
+        <TextView
+            android:id="@+id/main_content_last_refuels_second_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/main_content_last_refuels_second_month" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/main_content_last_refuels_second_month_recyclerview"

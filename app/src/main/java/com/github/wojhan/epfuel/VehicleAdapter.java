@@ -36,7 +36,10 @@ public class VehicleAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return position;
+        if (mVehicleList.get(position) == Car.class) {
+            return ((Car) mVehicleList.get(position)).getId();
+        }
+        return -1;
     }
 
     @Override

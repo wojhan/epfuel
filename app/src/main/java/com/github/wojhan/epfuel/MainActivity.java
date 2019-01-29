@@ -27,6 +27,7 @@ import com.github.wojhan.epfuel.db.FuelDatabase;
 import com.github.wojhan.epfuel.db.Refuel;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -172,14 +173,19 @@ public class MainActivity extends AppCompatActivity
                 int counter = data.getExtras().getInt("counter");
                 float fuelAmount = data.getExtras().getFloat("fuelAmount");
                 float priceForLiter = data.getExtras().getFloat("priceForLiter");
-                String date = data.getExtras().getString("date");
+                long date = data.getExtras().getLong("date");
+                String fuelType = data.getExtras().getString("fuelType");
+
+                Date dateToSave = new Date();
+                dateToSave.setTime(date);
 
                 final Refuel refuel = new Refuel();
                 refuel.setAmount(fuelAmount);
                 refuel.setCarId(carId);
                 refuel.setCounter(counter);
-                refuel.setDate(date);
+                refuel.setDate(dateToSave);
                 refuel.setPriceForLiter(priceForLiter);
+                refuel.setType(fuelType);
 
                 AsyncTask.execute(new Runnable() {
                     @Override

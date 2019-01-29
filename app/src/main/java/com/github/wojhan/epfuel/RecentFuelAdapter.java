@@ -9,8 +9,11 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.text.DecimalFormat;
+import java.util.Currency;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 public class RecentFuelAdapter extends RecyclerView.Adapter<RecentFuelAdapter.RecentFuelViewHolder> {
 
@@ -32,9 +35,9 @@ public class RecentFuelAdapter extends RecyclerView.Adapter<RecentFuelAdapter.Re
     public void onBindViewHolder(@NonNull RecentFuelViewHolder holder, int position) {
         RecentRefuel currentItem = mRecentFuelList.get(position);
 
-        holder.mLastPriceValue.setText(String.valueOf(currentItem.getLastPrice()));
-        holder.mLastConsumptionValue.setText(String.valueOf(currentItem.getLastConsumption()));
-        holder.mAvgConsumptionValue.setText(String.valueOf(currentItem.getAvgConsumption()));
+        holder.mLastPriceValue.setText(DecimalFormat.getCurrencyInstance().format((double) currentItem.getLastPrice()));
+        holder.mLastConsumptionValue.setText(String.format("%.2f", currentItem.getLastConsumption()));
+        holder.mAvgConsumptionValue.setText(String.format("%.2f", currentItem.getAvgConsumption()));
         holder.mDate.setText(String.valueOf(currentItem.getDate()));
         holder.mType.setText(currentItem.getType());
     }

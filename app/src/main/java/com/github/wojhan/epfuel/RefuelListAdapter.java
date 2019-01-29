@@ -41,11 +41,16 @@ public class RefuelListAdapter extends RecyclerView.Adapter<RefuelListAdapter.Re
             additionalKilometers = currentItem.getCounter() - previousItem.getCounter();
         }
 
+        holder.mDetails.setText("Pierwsze tankowanie");
 
-        holder.mDate.setText(currentItem.getDate());
-        holder.mDetails.setText("l/100 km: nie umiem policzyć");
+        if (additionalKilometers > 0) {
+            float consumption = currentItem.getAmount() / additionalKilometers * 100;
+            holder.mAdditionalKilometers.setText("+" + additionalKilometers + " km");
+            holder.mDetails.setText(String.format("l/100 km: %.2f", consumption));
+        }
+
+        holder.mDate.setText(currentItem.getDate().toString());
         holder.mFuelDetails.setText("19,14 l -> 2,31 zł/l (LPG)");
-        holder.mAdditionalKilometers.setText("+" + additionalKilometers + " km");
         holder.mPrice.setText(String.format("%.2f", currentItem.getAmount() * currentItem.getPriceForLiter()));
         holder.mCounter.setText(currentItem.getCounter() + " km");
     }

@@ -89,12 +89,19 @@ public class UserCarsFragment extends Fragment {
                 String make = data.getExtras().getString("make");
                 String model = data.getExtras().getString("model");
                 String description = data.getExtras().getString("description");
+                String firstTank = data.getExtras().getString("firstTank");
+                String secondTank = null;
+                if (data.getExtras().get("secondTank") != null) {
+                    secondTank = (String) data.getExtras().getString("secondTank");
+                }
 
                 final Car car = new Car();
                 car.setName(name);
                 car.setMake(make);
                 car.setModel(model);
                 car.setDescription(description);
+                car.setFirstTank(firstTank);
+                car.setSecondTank(secondTank);
                 AsyncTask.execute(new Runnable() {
                     @Override
                     public void run() {

@@ -11,12 +11,17 @@
     <android.support.v7.widget.CardView
         android:id="@+id/add_car_basic_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp">
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -34,7 +39,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:columnCount="2"
-                android:rowCount="2">
+                android:rowCount="2"
+                android:layout_marginRight="6dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp">
 
                 <TextView
                     android:layout_gravity="fill"
@@ -83,11 +92,16 @@
         android:id="@+id/add_car_fuel_type_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/add_car_basic_container">
+        android:layout_below="@id/add_car_basic_container"
+        android:layout_margin="10dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp">
 
             <TextView
                 android:id="@+id/add_car_fuel_type_header"
@@ -95,49 +109,85 @@
                 android:layout_height="wrap_content"
                 android:text="typ paliwa" />
 
-            <ImageView
-                android:id="@+id/add_car_fuel_type_first_icon"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:background="#000"
-                android:layout_below="@id/add_car_fuel_type_header" />
-
-            <Spinner
-                android:id="@+id/add_car_fuel_type_first_value"
+            <RelativeLayout
+                android:id="@+id/add_car_fuel_type_first"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/add_car_fuel_type_header"
-                android:layout_toEndOf="@id/add_car_fuel_type_first_icon"
-                android:layout_alignParentEnd="true" />
+                android:layout_below="@id/add_car_fuel_type_header">
 
-            <ImageView
-                android:id="@+id/add_car_fuel_type_second_icon"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:background="#000"
-                android:layout_below="@id/add_car_fuel_type_first_value" />
+                <TextView
+                    android:id="@+id/add_car_fuel_type_first_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/layer_list"
+                    android:layout_marginTop="6dp"
+                    android:layout_centerVertical="true"
+                    android:text="1"
+                    android:textSize="10sp"
+                    android:paddingHorizontal="6dp"
+                    android:paddingVertical="2dp"
+                    android:textColor="#fff" />
 
-            <Spinner
-                android:id="@+id/add_car_fuel_type_second_value"
+                <Spinner
+                    android:id="@+id/add_car_fuel_type_first_value"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/add_car_fuel_type_first_icon"
+                    android:layout_marginTop="6dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/add_car_fuel_type_second"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/add_car_fuel_type_first_value"
-                android:layout_toEndOf="@id/add_car_fuel_type_second_icon"
-                android:layout_alignParentEnd="true" />
+                android:layout_below="@id/add_car_fuel_type_first">
 
-            <TextView
-                android:id="@+id/add_car_fuel_type_two_tanks_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/add_car_fuel_type_second_value"
-                android:text="Dwa baki" />
+                <TextView
+                    android:id="@+id/add_car_fuel_type_second_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/layer_list"
+                    android:layout_marginTop="6dp"
+                    android:layout_centerVertical="true"
+                    android:text="2"
+                    android:textSize="10sp"
+                    android:paddingHorizontal="6dp"
+                    android:paddingVertical="2dp"
+                    android:textColor="#fff" />
 
-            <Switch
-                android:id="@+id/add_car_fuel_type_two_tanks_value"
-                android:layout_width="wrap_content"
+                <Spinner
+                    android:id="@+id/add_car_fuel_type_second_value"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/add_car_fuel_type_second_icon" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/add_car_fuel_type_switch"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_below="@id/add_car_fuel_type_second_icon" />
+                android:layout_below="@id/add_car_fuel_type_second">
+
+                <TextView
+                    android:id="@+id/add_car_fuel_type_two_tanks_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="Dwa baki" />
+
+                <Switch
+                    android:id="@+id/add_car_fuel_type_two_tanks_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true" />
+            </RelativeLayout>
+
 
         </RelativeLayout>
     </android.support.v7.widget.CardView>

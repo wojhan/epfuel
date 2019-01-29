@@ -21,6 +21,12 @@ public class Car {
     @ColumnInfo(name = "description")
     private String description;
 
+    @ColumnInfo(name = "first_tank")
+    private String firstTank;
+
+    @ColumnInfo(name = "second_tank")
+    private String secondTank;
+
     public int getId() {
         return id;
     }
@@ -59,5 +65,21 @@ public class Car {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getFirstTank() {
+        return firstTank;
+    }
+
+    public void setFirstTank(String firstTank) {
+        this.firstTank = firstTank;
+    }
+
+    public String getSecondTank() {
+        return secondTank;
+    }
+
+    public void setSecondTank(String secondTank) {
+        this.secondTank = secondTank;
     }
 }

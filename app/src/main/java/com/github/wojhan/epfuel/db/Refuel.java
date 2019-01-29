@@ -32,7 +32,7 @@ public class Refuel {
     private float amount;
 
     @ColumnInfo(name = "date")
-    private String date;
+    private Date date;
 
     public int getId() {
         return id;
@@ -82,11 +82,11 @@ public class Refuel {
         this.amount = amount;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 }

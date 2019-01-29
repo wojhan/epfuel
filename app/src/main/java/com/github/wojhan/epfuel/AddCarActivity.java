@@ -12,6 +12,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -43,6 +46,8 @@ public class AddCarActivity extends AppCompatActivity {
     private Switch mTwoTanksSwitch;
     private Spinner mFirstFuelTypeSpinner;
     private Spinner mSecondFuelTypeSpinner;
+    private TextView mFirstFuelIcon;
+    private TextView mSecondFuelIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,9 +65,43 @@ public class AddCarActivity extends AppCompatActivity {
         mTwoTanksSwitch = findViewById(R.id.add_car_fuel_type_two_tanks_value);
         mFirstFuelTypeSpinner = findViewById(R.id.add_car_fuel_type_first_value);
         mSecondFuelTypeSpinner = findViewById(R.id.add_car_fuel_type_second_value);
+        mFirstFuelIcon = findViewById(R.id.add_car_fuel_type_first_icon);
+        mSecondFuelIcon = findViewById(R.id.add_car_fuel_type_second_icon);
+
+        mTwoTanksSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    mSecondFuelTypeSpinner.setVisibility(View.VISIBLE);
+                    mSecondFuelIcon.setVisibility(View.VISIBLE);
+                } else {
+                    mSecondFuelTypeSpinner.setVisibility(View.GONE);
+                    mSecondFuelIcon.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        String[] firstTank = {"Benzyna", "Diesel"};
+        String[] secondTank = {"LPG", "CNG"};
+
+        ArrayAdapter<String> firstSpinnerArrayAdapter = new ArrayAdapter<String>
+                (this, android.R.layout.simple_spinner_item,
+                        firstTank);
+        firstSpinnerArrayAdapter.setDropDownViewResource(android.R.layout
+                .simple_spinner_dropdown_item);
+        mFirstFuelTypeSpinner.setAdapter(firstSpinnerArrayAdapter);
+
+        ArrayAdapter<String> secondSpinnerArrayAdapter = new ArrayAdapter<String>
+                (this, android.R.layout.simple_spinner_item,
+                        secondTank);
+        secondSpinnerArrayAdapter.setDropDownViewResource(android.R.layout
+                .simple_spinner_dropdown_item);
+        mSecondFuelTypeSpinner.setAdapter(secondSpinnerArrayAdapter);
+
 
         if (!mTwoTanksSwitch.isActivated()) {
             mSecondFuelTypeSpinner.setVisibility(View.GONE);
+            mSecondFuelIcon.setVisibility(View.GONE);
         }
 
         Gson gson = new GsonBuilder()
@@ -75,7 +114,42 @@ public class AddCarActivity extends AppCompatActivity {
                 .build();
 
         final CarApiService service = retrofit.create(CarApiService.class);
-        Call<MakeList> makeCall = service.getMakes();
+        final Call<MakeList> makeCall = service.getMakes();
+
+        makeCall.enqueue(new Callback<MakeList>() {
+            @Override
+            public void onResponse(Call<MakeList> call, Response<MakeList> response) {
+                MakeList makeList = response.body();
+
+                Make[] test = makeList.getMakes();
+
+                mMakelist = new ArrayList<>(Arrays.asList(makeList.getMakes()));
+                mMakeAdapter = new MakeAdapter(mMakelist);
+                mMakeSpinner.setAdapter(mMakeAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<MakeList> call, Throwable t) {
+                Log.d("addCarActivity", t.getMessage());
+            }
+        });
+
+        Call<ModelList> modelCall = service.getModels("opel");
+        modelCall.enqueue(new Callback<ModelList>() {
+            @Override
+            public void onResponse(Call<ModelList> call, Response<ModelList> response) {
+                ModelList modelList = response.body();
+
+                mModelList = new ArrayList<>(Arrays.asList(modelList.getModels()));
+                mModelAdapter = new ModelAdapter(mModelList);
+                mModelSpinner.setAdapter(mModelAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<ModelList> call, Throwable t) {
+
+            }
+        });
 
         mMakeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -107,23 +181,6 @@ public class AddCarActivity extends AppCompatActivity {
             }
         });
 
-
-        makeCall.enqueue(new Callback<MakeList>() {
-            @Override
-            public void onResponse(Call<MakeList> call, Response<MakeList> response) {
-                MakeList makeList = response.body();
-
-                mMakelist = new ArrayList<>(Arrays.asList(makeList.getMakes()));
-                mMakeAdapter = new MakeAdapter(mMakelist);
-                mMakeSpinner.setAdapter(mMakeAdapter);
-            }
-
-            @Override
-            public void onFailure(Call<MakeList> call, Throwable t) {
-                Log.d("addCarActivity", t.getMessage());
-            }
-        });
-
     }
 
     @Override
@@ -142,6 +199,8 @@ public class AddCarActivity extends AppCompatActivity {
                 backIntent.putExtra("make", ((Make) mMakeSpinner.getSelectedItem()).getName());
                 backIntent.putExtra("model", ((Model) mModelSpinner.getSelectedItem()).getName());
                 backIntent.putExtra("description", mDescriptionTextView.getText().toString());
+                backIntent.putExtra("firstTank", (String) mFirstFuelTypeSpinner.getSelectedItem());
+                backIntent.putExtra("secondTank", mTwoTanksSwitch.isChecked() ? (String) mSecondFuelTypeSpinner.getSelectedItem() : null);
                 setResult(RESULT_OK, backIntent);
                 finish();
         }
