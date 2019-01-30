@@ -22,6 +22,7 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.github.wojhan.epfuel.db.Car;
 import com.github.wojhan.epfuel.db.FuelDatabase;
@@ -42,6 +43,8 @@ public class AddRefuelActivity extends AppCompatActivity {
     private EditText mPriceForLiter;
     private EditText mPrice;
     private EditText mDate;
+
+    private TextView mGasStationName;
 
     private FuelDatabase db;
 
@@ -65,6 +68,7 @@ public class AddRefuelActivity extends AppCompatActivity {
         mDate = findViewById(R.id.add_refuel_date_value);
         mFuelType = findViewById(R.id.add_refuel_fuel_type);
         mPrice = findViewById(R.id.add_refuel_price_value);
+        mGasStationName = findViewById(R.id.add_refuel_gas_station_location);
 
         myCalendar = Calendar.getInstance();
 
@@ -201,5 +205,23 @@ public class AddRefuelActivity extends AppCompatActivity {
             }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void chooseLocation(View view) {
+        Intent intent = new Intent(this, MapsActivity.class);
+        startActivityForResult(intent, 1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                String name = data.getExtras().getString("name");
+                double lat = data.getExtras().getDouble("lat");
+                double lng = data.getExtras().getDouble("lng");
+
+                mGasStationName.setText(name);
+            }
+        }
     }
 }

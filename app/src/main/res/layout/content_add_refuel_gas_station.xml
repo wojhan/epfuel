@@ -38,6 +38,7 @@
             android:text="Wybierz"
             android:layout_below="@id/add_refuel_gas_station_location"
             android:background="@android:color/transparent"
+            android:onClick="chooseLocation"
             android:layout_alignParentEnd="true" />
     </RelativeLayout>
 
