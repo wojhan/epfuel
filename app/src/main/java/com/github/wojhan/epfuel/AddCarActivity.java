@@ -1,8 +1,14 @@
 package com.github.wojhan.epfuel;
 
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Debug;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -22,8 +28,12 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -49,6 +59,11 @@ public class AddCarActivity extends AppCompatActivity {
     private TextView mFirstFuelIcon;
     private TextView mSecondFuelIcon;
 
+    private ImageView mPhoto;
+
+    private Bitmap bp;
+    private String photoPath = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +82,8 @@ public class AddCarActivity extends AppCompatActivity {
         mSecondFuelTypeSpinner = findViewById(R.id.add_car_fuel_type_second_value);
         mFirstFuelIcon = findViewById(R.id.add_car_fuel_type_first_icon);
         mSecondFuelIcon = findViewById(R.id.add_car_fuel_type_second_icon);
+        mPhoto = findViewById(R.id.add_car_photo_image);
+
 
         mTwoTanksSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -193,17 +210,103 @@ public class AddCarActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_add_refuel_done:
+            case android.R.id.home:
                 Intent backIntent = new Intent();
+                setResult(RESULT_CANCELED, backIntent);
+                finish();
+                return true;
+            case R.id.menu_add_refuel_done:
+                backIntent = new Intent();
                 backIntent.putExtra("name", mNameTextview.getText().toString());
                 backIntent.putExtra("make", ((Make) mMakeSpinner.getSelectedItem()).getName());
                 backIntent.putExtra("model", ((Model) mModelSpinner.getSelectedItem()).getName());
                 backIntent.putExtra("description", mDescriptionTextView.getText().toString());
                 backIntent.putExtra("firstTank", (String) mFirstFuelTypeSpinner.getSelectedItem());
                 backIntent.putExtra("secondTank", mTwoTanksSwitch.isChecked() ? (String) mSecondFuelTypeSpinner.getSelectedItem() : null);
+                backIntent.putExtra("photo", photoPath);
                 setResult(RESULT_OK, backIntent);
                 finish();
+                return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void choosePhoto(View view) {
+        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+        photoPickerIntent.setType("image/*");
+        startActivityForResult(photoPickerIntent, 2);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == 2 && resultCode == RESULT_OK) {
+            Uri choosenImage = data.getData();
+
+            if (choosenImage != null) {
+
+                bp = decodeUri(choosenImage, 400);
+                photoPath = saveToInternalStorage(bp, mNameTextview.getText().toString() + Calendar.getInstance().getTimeInMillis() + ".png");
+                mPhoto.setImageBitmap(bp);
+            }
+        }
+    }
+
+    private String saveToInternalStorage(Bitmap bitmapImage, String name) {
+        ContextWrapper cw = new ContextWrapper(getApplicationContext());
+        // path to /data/data/yourapp/app_data/imageDir
+        File directory = cw.getDir("carImages", Context.MODE_PRIVATE);
+        // Create imageDir
+        File mypath = new File(directory, name);
+
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(mypath);
+            // Use the compress method on the BitMap object to write image to the OutputStream
+            bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return mypath.getAbsolutePath();
+    }
+
+    protected Bitmap decodeUri(Uri selectedImage, int REQUIRED_SIZE) {
+
+        try {
+
+            // Decode image size
+            BitmapFactory.Options o = new BitmapFactory.Options();
+            o.inJustDecodeBounds = true;
+            BitmapFactory.decodeStream(getContentResolver().openInputStream(selectedImage), null, o);
+
+            // The new size we want to scale to
+            // final int REQUIRED_SIZE =  size;
+
+            // Find the correct scale value. It should be the power of 2.
+            int width_tmp = o.outWidth, height_tmp = o.outHeight;
+            int scale = 1;
+            while (true) {
+                if (width_tmp / 2 < REQUIRED_SIZE
+                        || height_tmp / 2 < REQUIRED_SIZE) {
+                    break;
+                }
+                width_tmp /= 2;
+                height_tmp /= 2;
+                scale *= 2;
+            }
+
+            // Decode with inSampleSize
+            BitmapFactory.Options o2 = new BitmapFactory.Options();
+            o2.inSampleSize = scale;
+            return BitmapFactory.decodeStream(getContentResolver().openInputStream(selectedImage), null, o2);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

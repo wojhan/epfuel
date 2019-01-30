@@ -13,6 +13,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +21,10 @@ import android.view.ViewGroup;
 import com.github.wojhan.epfuel.db.Car;
 import com.github.wojhan.epfuel.db.FuelDatabase;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 
 public class UserCarsFragment extends Fragment {
@@ -32,6 +35,8 @@ public class UserCarsFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private UserCarAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+
+    private List<Car> mCarList;
 
     public static UserCarsFragment newInstance() {
         return new UserCarsFragment();
@@ -47,28 +52,19 @@ public class UserCarsFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(UserCarsViewModel.class);
-        mViewModel.view = getView();
         // TODO: Use the ViewModel
+
+        mCarList = new ArrayList<>();
 
         mRecyclerView = getView().findViewById(R.id.user_cars_recyclerview);
         mRecyclerView.setHasFixedSize(true);
 
         mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
+        mAdapter = new UserCarAdapter(mCarList);
+        mRecyclerView.setAdapter(mAdapter);
 
-        db = Room.databaseBuilder(getContext(),
-                FuelDatabase.class, "fuel").build();
-
-        db.carDao().getAll().observe(this, new Observer<List<Car>>() {
-
-            @Override
-            public void onChanged(@Nullable List<Car> cars) {
-                mViewModel.loadCars(cars);
-
-                mAdapter = new UserCarAdapter(mViewModel.getCars());
-                mRecyclerView.setAdapter(mAdapter);
-            }
-        });
+        mViewModel.getAllCars().observe(this, carObserver);
 
         FloatingActionButton fab = (FloatingActionButton) getView().findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -79,6 +75,17 @@ public class UserCarsFragment extends Fragment {
             }
         });
     }
+
+    Observer<List<Car>> carObserver = new Observer<List<Car>>() {
+        @Override
+        public void onChanged(@Nullable List<Car> cars) {
+            if (!mCarList.isEmpty()) {
+                mCarList.clear();
+            }
+            mCarList.addAll(cars);
+            mAdapter.notifyDataSetChanged();
+        }
+    };
 
 
     @Override
@@ -91,6 +98,7 @@ public class UserCarsFragment extends Fragment {
                 String description = data.getExtras().getString("description");
                 String firstTank = data.getExtras().getString("firstTank");
                 String secondTank = null;
+                String photo = data.getExtras().getString("photo");
                 if (data.getExtras().get("secondTank") != null) {
                     secondTank = (String) data.getExtras().getString("secondTank");
                 }
@@ -102,12 +110,15 @@ public class UserCarsFragment extends Fragment {
                 car.setDescription(description);
                 car.setFirstTank(firstTank);
                 car.setSecondTank(secondTank);
+                car.setImage(photo);
                 AsyncTask.execute(new Runnable() {
                     @Override
                     public void run() {
                         db.carDao().insert(car);
                     }
                 });
+            } else if (resultCode == RESULT_CANCELED) {
+
             }
         }
         super.onActivityResult(requestCode, resultCode, data);

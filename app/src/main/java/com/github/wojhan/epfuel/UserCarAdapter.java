@@ -1,5 +1,7 @@
 package com.github.wojhan.epfuel;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,6 +14,9 @@ import com.github.wojhan.epfuel.db.Car;
 
 import org.w3c.dom.Text;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -38,6 +43,16 @@ public class UserCarAdapter extends RecyclerView.Adapter<UserCarAdapter.UserCarV
         holder.mModelTextView.setText(currentItem.getModel());
         holder.mMakeTextView.setText(currentItem.getMake());
         holder.mNameTextView.setText(currentItem.getName());
+
+        if (currentItem.getImage() != null && !currentItem.getImage().isEmpty()) {
+            try {
+                File f = new File(currentItem.getImage());
+                Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
+                holder.mImageView.setImageBitmap(b);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
 //        holder.mImageView
     }
 

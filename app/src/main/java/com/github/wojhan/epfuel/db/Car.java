@@ -27,6 +27,9 @@ public class Car {
     @ColumnInfo(name = "second_tank")
     private String secondTank;
 
+    @ColumnInfo(name = "image")
+    private String image;
+
     public int getId() {
         return id;
     }
@@ -81,5 +84,13 @@ public class Car {
 
     public void setSecondTank(String secondTank) {
         this.secondTank = secondTank;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }
