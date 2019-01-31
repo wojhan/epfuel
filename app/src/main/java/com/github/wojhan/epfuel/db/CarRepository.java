@@ -31,6 +31,16 @@ public class CarRepository {
         asyncTask.execute(car);
     }
 
+    public void update(Car car) {
+        UpdateAsyncTask asyncTask = new UpdateAsyncTask(carDao);
+        asyncTask.execute(car);
+    }
+
+    public void delete(Car car) {
+        DeleteAsyncTask asyncTask = new DeleteAsyncTask(carDao);
+        asyncTask.execute(car);
+    }
+
     private static class InsertAsyncTask extends AsyncTask<Car, Void, Void> {
 
         private CarDao mAsyncTaskDao;
@@ -42,6 +52,34 @@ public class CarRepository {
         @Override
         protected Void doInBackground(Car... cars) {
             mAsyncTaskDao.insert(cars[0]);
+            return null;
+        }
+    }
+
+    private static class UpdateAsyncTask extends AsyncTask<Car, Void, Void> {
+        private CarDao mAsyncTaskDao;
+
+        private UpdateAsyncTask(CarDao asyncTask) {
+            mAsyncTaskDao = asyncTask;
+        }
+
+        @Override
+        protected Void doInBackground(Car... cars) {
+            mAsyncTaskDao.update(cars[0]);
+            return null;
+        }
+    }
+
+    private static class DeleteAsyncTask extends AsyncTask<Car, Void, Void> {
+        private CarDao mAsyncTaskDao;
+
+        private DeleteAsyncTask(CarDao asyncTask) {
+            mAsyncTaskDao = asyncTask;
+        }
+
+        @Override
+        protected Void doInBackground(Car... cars) {
+            mAsyncTaskDao.delete(cars[0]);
             return null;
         }
     }

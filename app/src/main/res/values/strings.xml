@@ -9,4 +9,5 @@
     <string name="title_activity_add_refuel">Add new refuel</string>
     <string name="title_activity_add_car">Add new car</string>
     <string name="title_activity_maps">Map</string>
+    <string name="title_activity_edit_car">EditCarActivity</string>
 </resources>

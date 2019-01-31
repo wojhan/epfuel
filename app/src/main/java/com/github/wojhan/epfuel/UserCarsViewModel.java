@@ -34,4 +34,17 @@ public class UserCarsViewModel extends AndroidViewModel {
     public LiveData<List<Car>> getAllCars() {
         return carListLiveData;
     }
+
+    public void insertCar(Car car) {
+        carRepository.insert(car);
+    }
+
+    public void updateCar(Car car) {
+        carRepository.update(car);
+    }
+
+    public void deleteCar(Car car) {
+        carRepository.delete(car);
+    }
+
 }

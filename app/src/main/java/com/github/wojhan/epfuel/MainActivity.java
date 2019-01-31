@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity
 
     public static final int ADD_NEW_REFUEL_ACTIVITY = 1;
     public static final int ADD_NEW_CAR_ACTIVITY = 2;
+    public static final int EDIT_CAR_ACTIVITY = 3;
 
     private FuelDatabase db;
 
