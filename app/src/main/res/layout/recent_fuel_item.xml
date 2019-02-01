@@ -36,7 +36,7 @@
         android:id="@+id/recent_fuel_item_avg_consumption_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Średnie spalanie paliwa"
+        android:text="@string/avg_consumption"
         android:layout_toRightOf="@id/recent_fuel_item_avg_consumption_value"
         android:layout_below="@id/recent_fuel_item_label"
         android:textAlignment="viewEnd" />
@@ -45,7 +45,7 @@
         android:id="@+id/recent_fuel_item_last_consumption_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ostatnie spalanie"
+        android:text="@string/last_consumption"
         android:layout_toRightOf="@id/recent_fuel_item_last_consumption_value"
         android:layout_below="@id/recent_fuel_item_avg_consumption_value"
         android:textAlignment="viewEnd" />
@@ -54,7 +54,7 @@
         android:id="@+id/recent_fuel_item_last_price_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ostatnia cena paliwa"
+        android:text="@string/last_price"
         android:layout_below="@id/recent_fuel_item_last_consumption_label"
         android:layout_toRightOf="@id/recent_fuel_item_last_price_value"
         android:textAlignment="viewEnd" />

@@ -9,7 +9,8 @@
         android:id="@+id/vehicle_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/spinner_bg" />
+        android:background="@drawable/spinner_bg"
+        android:layout_margin="10dp" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/refuel_list_recyclerview"

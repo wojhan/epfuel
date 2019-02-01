@@ -15,8 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#c9c9c9"
-            android:textColor="#fff"
-            android:text="w tym miesiącu" />
+            android:text="@string/in_current_month" />
 
         <TextView
             android:id="@+id/main_content_summary_first_month_price_value"
@@ -32,7 +31,7 @@
             android:layout_below="@id/main_content_summary_first_month_label"
             android:layout_toRightOf="@id/main_content_summary_first_month_price_value"
             android:textAlignment="viewEnd"
-            android:text="Wydano na paliwo" />
+            android:text="@string/spent_on_fuel" />
 
         <TextView
             android:id="@+id/main_content_summary_first_month_fueled_value"
@@ -48,23 +47,22 @@
             android:layout_below="@id/main_content_summary_first_month_price_value"
             android:layout_toRightOf="@id/main_content_summary_first_month_fueled_value"
             android:textAlignment="viewEnd"
-            android:text="Zatankowano" />
+            android:text="@string/refueled" />
 
         <TextView
             android:id="@+id/main_content_summary_second_month_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#c9c9c9"
-            android:textColor="#fff"
             android:layout_below="@id/main_content_summary_first_month_fueled_value"
-            android:text="w poprzednim miesiącu" />
+            android:text="@string/in_previous_month" />
 
         <TextView
             android:id="@+id/main_content_summary_second_month_price_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/main_content_summary_second_month_label"
-            android:text="279,39 zł" />
+            android:text="0,00 zł" />
 
         <TextView
             android:id="@+id/main_content_summary_second_month_price_label"
@@ -73,7 +71,7 @@
             android:layout_below="@id/main_content_summary_second_month_label"
             android:layout_toRightOf="@id/main_content_summary_second_month_price_value"
             android:textAlignment="viewEnd"
-            android:text="Wydano na paliwo" />
+            android:text="@string/spent_on_fuel" />
 
         <TextView
             android:id="@+id/main_content_summary_second_month_fueled_value"
@@ -89,7 +87,7 @@
             android:layout_below="@id/main_content_summary_second_month_price_value"
             android:layout_toRightOf="@id/main_content_summary_second_month_fueled_value"
             android:textAlignment="viewEnd"
-            android:text="Zatankowano" />
+            android:text="@string/refueled" />
 
     </RelativeLayout>
 

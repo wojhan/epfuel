@@ -13,12 +13,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -26,16 +24,14 @@ import android.widget.TextView;
 
 import com.github.wojhan.epfuel.db.Car;
 import com.github.wojhan.epfuel.db.FuelDatabase;
-import com.github.wojhan.epfuel.db.Refuel;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
-import java.util.concurrent.atomic.AtomicIntegerArray;
 
-public class AddRefuelActivity extends AppCompatActivity {
+public class EditRefuelActivity extends AppCompatActivity {
 
     private Spinner mCar;
     private Spinner mFuelType;
@@ -57,6 +53,9 @@ public class AddRefuelActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent = getIntent();
+        final Bundle extras = intent.getExtras();
+
         setContentView(R.layout.activity_add_refuel);
         setTheme(R.style.AppTheme);
         Toolbar toolbar = (Toolbar) findViewById(R.id.add_refuel_toolbar);
@@ -73,10 +72,16 @@ public class AddRefuelActivity extends AppCompatActivity {
 
         myCalendar = Calendar.getInstance();
 
-        String myFormat = "dd-MM-yyyy"; //In which you need put here
+
+        String myFormat = "dd-MM-yyyy";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
 
-        mDate.setText(sdf.format(Calendar.getInstance().getTime()));
+        mCounter.setText(String.valueOf(extras.getInt("counter")));
+        mFuelAmount.setText(String.format(Locale.ENGLISH, "%.2f", extras.getFloat("fuelAmount")));
+        mPriceForLiter.setText(String.format(Locale.ENGLISH, "%.2f", extras.getFloat("priceForLiter")));
+        mDate.setText(sdf.format(extras.getLong("date")));
+        mPrice.setText(String.format(Locale.ENGLISH, "%.2f", extras.getFloat("fuelAmount") * extras.getFloat("priceForLiter")));
+
 
         mFuelAmount.addTextChangedListener(new TextWatcher() {
             @Override
@@ -107,7 +112,6 @@ public class AddRefuelActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 if (!mFuelAmount.getText().toString().isEmpty() && !s.toString().isEmpty()) {
-                    float test = Float.parseFloat(s.toString());
                     mPrice.setText(String.format("%.2f", Float.parseFloat(s.toString()) * Float.parseFloat(mFuelAmount.getText().toString())));
                 }
             }
@@ -132,6 +136,8 @@ public class AddRefuelActivity extends AppCompatActivity {
 
             }
         });
+        mFuelType.setSelection(extras.getInt("fuel"), true);
+
 
         final DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -153,7 +159,7 @@ public class AddRefuelActivity extends AppCompatActivity {
         mDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new DatePickerDialog(AddRefuelActivity.this, datePickerListener, myCalendar
+                new DatePickerDialog(EditRefuelActivity.this, datePickerListener, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
 
@@ -170,25 +176,13 @@ public class AddRefuelActivity extends AppCompatActivity {
             public void onChanged(@Nullable List<Car> cars) {
                 mCarAdapter = new VehicleAdapter(cars);
                 mCar.setAdapter(mCarAdapter);
-                mCar.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        db.fuelDao().getRefuels(((Car) parent.getSelectedItem()).getId()).observe(AddRefuelActivity.this, new Observer<List<Refuel>>() {
-                            @Override
-                            public void onChanged(@Nullable List<Refuel> refuels) {
-                                if (refuels.size() > 0) {
-                                    mCounter.setHint(String.valueOf(refuels.get(0).getCounter()));
-                                }
-                            }
-                        });
-                    }
 
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
-
+                for (int i = 0; i < cars.size(); i++) {
+                    if (cars.get(i).getId() == extras.getInt("carId")) {
+                        mCar.setSelection(i + 1, true);
+                        break;
                     }
-                });
-                mCar.setSelection(preferences.getInt("chosenCarPosition", 0), true);
+                }
             }
         });
 
@@ -249,4 +243,5 @@ public class AddRefuelActivity extends AppCompatActivity {
             }
         }
     }
+
 }

@@ -12,12 +12,11 @@
         android:id="@+id/vehicle_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/spinner_bg" />
+        android:background="@drawable/spinner_bg"
+        android:layout_margin="10dp" />
 
     <include layout="@layout/content_add_refuel_basic_info_card" />
 
     <include layout="@layout/content_add_refuel_gas_station" />
-
-    <include layout="@layout/content_add_refuel_additional_info_card" />
 
 </RelativeLayout>

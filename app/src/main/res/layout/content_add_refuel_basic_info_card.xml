@@ -3,24 +3,30 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_below="@+id/vehicle_spinner">
+    android:layout_below="@+id/vehicle_spinner"
+    android:layout_margin="10dp">
 
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:columnCount="2">
+        android:columnCount="2"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp">
 
         <TextView
             android:id="@+id/add_refuel_counter_label"
             android:layout_column="0"
-            android:text="Licznik"
+            android:text="@string/counter"
             android:layout_gravity="fill_horizontal|center_vertical"
+            android:layout_marginLeft="6dp"
             android:layout_columnWeight="1" />
 
         <EditText
             android:id="@+id/add_refuel_counter_value"
             android:layout_column="1"
-            android:hint="165275 km"
+            android:hint="0 km"
             android:layout_gravity="fill_horizontal|center_vertical"
             android:layout_columnWeight="1"
             android:inputType="numberSigned" />
@@ -43,7 +49,8 @@
             android:id="@+id/add_refuel_price_for_liter_label"
             android:layout_gravity="fill_horizontal|center_vertical"
             android:layout_columnWeight="3"
-            android:text="Cena za litr" />
+            android:layout_marginLeft="6dp"
+            android:text="@string/price_for_liter" />
 
         <EditText
             android:id="@+id/add_refuel_price_for_liter_value"
@@ -57,7 +64,9 @@
             android:id="@+id/add_refuel_price_label"
             android:layout_gravity="fill_horizontal|center_vertical"
             android:layout_columnWeight="3"
-            android:text="Koszt" />
+            android:layout_marginLeft="6dp"
+
+            android:text="@string/price" />
 
         <EditText
             android:id="@+id/add_refuel_price_value"
@@ -71,7 +80,8 @@
             android:id="@+id/add_refuel_date_label"
             android:layout_gravity="fill_horizontal|center_vertical"
             android:layout_columnWeight="3"
-            android:text="Data" />
+            android:layout_marginLeft="6dp"
+            android:text="@string/date" />
 
         <EditText
             android:id="@+id/add_refuel_date_value"
@@ -79,13 +89,6 @@
             android:layout_column="1"
             android:layout_columnWeight="1"
             android:focusable="false" />
-
-        <CheckBox
-            android:id="@+id/add_refuel_is_full"
-            android:layout_gravity="fill"
-            android:layout_columnSpan="2"
-            android:text="Tankowanie do pełna" />
-
     </GridLayout>
 
 </android.support.v7.widget.CardView>

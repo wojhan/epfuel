@@ -37,8 +37,15 @@ public class MainActivity extends AppCompatActivity
     public static final int ADD_NEW_REFUEL_ACTIVITY = 1;
     public static final int ADD_NEW_CAR_ACTIVITY = 2;
     public static final int EDIT_CAR_ACTIVITY = 3;
+    public static final int EDIT_REFUEL_ACTIVITY = 4;
 
     private FuelDatabase db;
+
+    private MainFragment mainFragment;
+    private RefuelListFragment refuelListFragment;
+    private UserCarsFragment userCarsFragment;
+
+    private boolean switchToRefuelList = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +56,10 @@ public class MainActivity extends AppCompatActivity
 
         db = Room.databaseBuilder(getApplicationContext(),
                 FuelDatabase.class, "fuel").build();
+
+        mainFragment = new MainFragment();
+        refuelListFragment = new RefuelListFragment();
+        userCarsFragment = new UserCarsFragment();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -68,6 +79,19 @@ public class MainActivity extends AppCompatActivity
 
         transaction.commit();
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (switchToRefuelList) {
+            switchToRefuelList = false;
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+            transaction.replace(R.id.main_content_framelayout, refuelListFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        }
     }
 
     @Override
@@ -95,9 +119,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -109,11 +131,9 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.drawer_home) {
-            MainFragment newFragment = new MainFragment();
-
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
-            transaction.replace(R.id.main_content_framelayout, newFragment);
+            transaction.replace(R.id.main_content_framelayout, mainFragment);
             transaction.addToBackStack(null);
 
             transaction.commit();
@@ -122,20 +142,16 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(this, AddRefuelActivity.class);
             startActivityForResult(intent, ADD_NEW_REFUEL_ACTIVITY);
         } else if (id == R.id.drawer_refuel_list) {
-            RefuelListFragment newFragment = new RefuelListFragment();
-
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
-            transaction.replace(R.id.main_content_framelayout, newFragment);
+            transaction.replace(R.id.main_content_framelayout, refuelListFragment);
             transaction.addToBackStack(null);
 
             transaction.commit();
         } else if (id == R.id.drawer_cars) {
-            UserCarsFragment newFragment = new UserCarsFragment();
-
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
-            transaction.replace(R.id.main_content_framelayout, newFragment);
+            transaction.replace(R.id.main_content_framelayout, userCarsFragment);
             transaction.addToBackStack(null);
 
             transaction.commit();
@@ -192,6 +208,37 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     public void run() {
                         db.fuelDao().insert(refuel);
+                    }
+                });
+
+                switchToRefuelList = true;
+            }
+        }
+
+        if (requestCode == EDIT_REFUEL_ACTIVITY) {
+            if (resultCode == RESULT_OK) {
+                int carId = data.getExtras().getInt("carId");
+                int counter = data.getExtras().getInt("counter");
+                float fuelAmount = data.getExtras().getFloat("fuelAmount");
+                float priceForLiter = data.getExtras().getFloat("priceForLiter");
+                long date = data.getExtras().getLong("date");
+                String fuelType = data.getExtras().getString("fuelType");
+
+                Date dateToSave = new Date();
+                dateToSave.setTime(date);
+
+                final Refuel refuel = (Refuel) data.getExtras().get("refuel");
+                refuel.setAmount(fuelAmount);
+                refuel.setCarId(carId);
+                refuel.setCounter(counter);
+                refuel.setDate(dateToSave);
+                refuel.setPriceForLiter(priceForLiter);
+                refuel.setType(fuelType);
+
+                AsyncTask.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        db.fuelDao().update(refuel);
                     }
                 });
             }

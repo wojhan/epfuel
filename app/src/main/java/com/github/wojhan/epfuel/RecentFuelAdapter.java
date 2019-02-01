@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.util.Currency;
 import java.util.HashMap;
@@ -36,9 +37,9 @@ public class RecentFuelAdapter extends RecyclerView.Adapter<RecentFuelAdapter.Re
         RecentRefuel currentItem = mRecentFuelList.get(position);
 
         holder.mLastPriceValue.setText(DecimalFormat.getCurrencyInstance().format((double) currentItem.getLastPrice()));
-        holder.mLastConsumptionValue.setText(String.format("%.2f", currentItem.getLastConsumption()));
-        holder.mAvgConsumptionValue.setText(String.format("%.2f", currentItem.getAvgConsumption()));
-        holder.mDate.setText(String.valueOf(currentItem.getDate()));
+        holder.mLastConsumptionValue.setText(String.format("%.2f l", currentItem.getLastConsumption()));
+        holder.mAvgConsumptionValue.setText(String.format("%.2f l", currentItem.getAvgConsumption()));
+        holder.mDate.setText(String.valueOf(DateFormat.getDateInstance(DateFormat.SHORT).format(currentItem.getDate())));
         holder.mType.setText(currentItem.getType());
     }
 

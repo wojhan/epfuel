@@ -10,7 +10,9 @@ import android.widget.TextView;
 import com.github.wojhan.epfuel.db.Refuel;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class RecentRefuelsAdapter extends RecyclerView.Adapter<RecentRefuelsAdapter.RecentRefuelsViewHolder> {
 
@@ -35,7 +37,8 @@ public class RecentRefuelsAdapter extends RecyclerView.Adapter<RecentRefuelsAdap
         float price = currentItem.getAmount() * currentItem.getPriceForLiter();
 
         holder.mDate.setText(String.valueOf(DateFormat.getDateInstance(DateFormat.SHORT).format(currentItem.getDate())));
-        holder.mPrice.setText(String.format("%.2f", price));
+        holder.mAmount.setText(String.format("%.2f l", currentItem.getAmount()));
+        holder.mPrice.setText(DecimalFormat.getCurrencyInstance(Locale.getDefault()).format((double) price));
     }
 
     @Override
@@ -46,11 +49,13 @@ public class RecentRefuelsAdapter extends RecyclerView.Adapter<RecentRefuelsAdap
     public static class RecentRefuelsViewHolder extends RecyclerView.ViewHolder {
         public TextView mPrice;
         public TextView mDate;
+        public TextView mAmount;
 
         public RecentRefuelsViewHolder(@NonNull View itemView) {
             super(itemView);
             mPrice = itemView.findViewById(R.id.recent_refuels_item_price);
             mDate = itemView.findViewById(R.id.recent_refuels_item_date);
+            mAmount = itemView.findViewById(R.id.recent_refuels_item_amount);
         }
     }
 }

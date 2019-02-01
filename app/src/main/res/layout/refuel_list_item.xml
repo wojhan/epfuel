@@ -8,14 +8,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:columnCount="3"
-        android:rowCount="4">
+        android:rowCount="4"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
 
         <ImageView
             android:id="@+id/refuel_list_item_fuel_icon"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="#000"
-            android:layout_columnWeight="1"
+            android:layout_margin="10dp"
+            android:background="@drawable/ic_local_gas_station"
             android:layout_rowSpan="2" />
 
         <TextView
@@ -23,6 +25,8 @@
             android:layout_column="1"
             android:layout_gravity="fill_horizontal"
             android:layout_columnWeight="3"
+            android:textColor="#757575"
+            android:layout_marginLeft="4dp"
             android:text="2018-12-23" />
 
         <TextView
@@ -30,6 +34,9 @@
             android:layout_column="2"
             android:layout_gravity="end"
             android:layout_columnWeight="2"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:textColor="#000"
             android:text="165 275 km" />
 
         <TextView
@@ -38,6 +45,9 @@
             android:layout_row="1"
             android:layout_gravity="fill_horizontal"
             android:layout_columnWeight="3"
+            android:textColor="#000"
+            android:layout_marginLeft="4dp"
+
             android:text="44,21 zł" />
 
         <TextView
@@ -49,34 +59,43 @@
 
         <ImageView
             android:id="@+id/refuel_list_item_amount_icon"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
             android:layout_column="0"
             android:layout_row="2"
-            android:layout_gravity="fill"
-            android:background="#aa77"
+            android:layout_gravity="center"
+            android:background="@drawable/ic_opacity"
             android:layout_columnWeight="1" />
 
         <TextView
             android:id="@+id/refuel_list_item_fuel_details"
             android:layout_column="1"
             android:layout_row="2"
-            android:layout_gravity="fill_horizontal"
+            android:layout_gravity="fill_horizontal|center_vertical"
             android:layout_columnWeight="3"
+            android:layout_marginLeft="4dp"
+
             android:text="19,14 l -> 2,31 zł/l (LPG)" />
 
         <ImageView
             android:id="@+id/refuel_list_item_details_icon"
+            android:layout_height="18dp"
+            android:layout_width="18dp"
             android:layout_column="0"
             android:layout_row="3"
-            android:layout_gravity="fill"
-            android:background="#bbb"
+            android:layout_gravity="center"
+            android:background="@drawable/ic_trending_up"
+            android:layout_marginTop="6dp"
             android:layout_columnWeight="1" />
 
         <TextView
             android:id="@+id/refuel_list_item_details"
             android:layout_column="1"
             android:layout_row="3"
-            android:layout_gravity="fill_horizontal"
+            android:layout_gravity="fill_horizontal|center_vertical"
             android:layout_columnWeight="2"
+            android:layout_marginTop="6dp"
+            android:layout_marginLeft="4dp"
             android:text="l/100km: 8,14" />
 
     </GridLayout>

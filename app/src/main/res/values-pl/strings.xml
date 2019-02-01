@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">EPFuel</string>
+    <string name="navigation_drawer_open">Otwórz menu</string>
+    <string name="navigation_drawer_close">Zamknij menu</string>
+    <string name="nav_header_title">EPFuel - Twój dziennik tankowania</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="title_activity_add_refuel">Dodaj nowy wpis</string>
+    <string name="title_activity_add_car">Dodaj nowy samochód</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_edit_car">Edycja samochodu</string>
+    <string name="title_activity_edit_refuel">EditRefuelActivity</string>
+    <string name="name">Nazwa</string>
+    <string name="make">Marka</string>
+    <string name="model">Model</string>
+    <string name="description">Opis</string>
+    <string name="fuel_type">Typ paliwa</string>
+    <string name="two_tanks">Dwa baki</string>
+    <string name="choose_photo">Wybierz zdjęcie</string>
+    <string name="counter">Licznik</string>
+    <string name="price_for_liter">Cena za litr</string>
+    <string name="price">Cena</string>
+    <string name="date">Data</string>
+    <string name="petrol_station">STACJA BENZYNOWA</string>
+    <string name="none">Brak</string>
+    <string name="choose">Wybierz</string>
+    <string name="loading">Ładowanie</string>
+    <string name="in_current_month">W tym miesiącu</string>
+    <string name="spent_on_fuel">Wydano na paliwo</string>
+    <string name="refueled">Zatankowano</string>
+    <string name="in_previous_month">W poprzednim miesiącu</string>
+    <string name="fuel">Paliwo</string>
+    <string name="recent_refuels">Ostatnie wpisy</string>
+    <string name="summary">Podsumowanie</string>
+    <string name="avg_consumption">Średnie zużycie paliwa</string>
+    <string name="last_consumption">Ostatnie zużycie paliwa</string>
+    <string name="last_price">Ostatnia cena paliwa</string>
+    <string name="delete">Usuń</string>
+    <string name="edit">Edytuj</string>
+    <string name="home">Strona główna</string>
+    <string name="add">Dodaj</string>
+    <string name="refuel_list">Dziennik tankowania</string>
+    <string name="cars">Samochody</string>
+    <string name="not_enough_records">Niewystarczająca liczba rekordów</string>
+    <string name="no_records">Brak rekordów</string>
+</resources>

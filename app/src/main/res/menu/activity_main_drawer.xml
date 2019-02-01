@@ -6,16 +6,16 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/drawer_home"
-            android:title="Strona główna" />
+            android:title="@string/home" />
         <item
             android:id="@+id/drawer_add_refuel"
-            android:title="Dodaj" />
+            android:title="@string/add" />
         <item
             android:id="@+id/drawer_refuel_list"
-            android:title="Dziennik tankowąń" />
+            android:title="@string/refuel_list" />
         <item
             android:id="@+id/drawer_cars"
-            android:title="Samochody" />
+            android:title="@string/cars" />
     </group>
 
     <!--<item android:title="Communicate">-->

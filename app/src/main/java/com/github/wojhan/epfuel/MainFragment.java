@@ -73,6 +73,8 @@ public class MainFragment extends Fragment {
     private TextView mFueledInPreviousMonth;
 
     private SharedPreferences preferences;
+    private TextView mRecentRefuelsFirstMonthEmpty;
+    private TextView mRecentRefuelsSecondMonthEmpty;
 
     public static MainFragment newInstance() {
         return new MainFragment();
@@ -109,6 +111,8 @@ public class MainFragment extends Fragment {
         mPaidInPreviousMonth = getView().findViewById(R.id.main_content_summary_second_month_price_value);
         mFueledInCurrentMonth = getView().findViewById(R.id.main_content_summary_first_month_fueled_value);
         mFueledInPreviousMonth = getView().findViewById(R.id.main_content_summary_second_month_fueled_value);
+        mRecentRefuelsFirstMonthEmpty = getView().findViewById(R.id.main_content_last_refuels_first_empty);
+        mRecentRefuelsSecondMonthEmpty = getView().findViewById(R.id.main_content_last_refuels_second_empty);
 
         recentRefuelList = new ArrayList<>();
 
@@ -207,7 +211,7 @@ public class MainFragment extends Fragment {
                         mRecentFuelAdapter.notifyDataSetChanged();
 
                         if (recentRefuelList.size() == 0) {
-                            mDescriptionTextView.setText("Brak wystarczającej liczby rekordów.");
+                            mDescriptionTextView.setText(getString(R.string.not_enough_records));
                         } else {
                             mFuelContainerCardView.setVisibility(View.GONE);
                         }
@@ -218,7 +222,7 @@ public class MainFragment extends Fragment {
                 mRecentFuelAdapter.notifyDataSetChanged();
 
                 if (recentRefuelList.size() == 0) {
-                    mDescriptionTextView.setText("Brak wystarczającej liczby rekordów.");
+                    mDescriptionTextView.setText(getString(R.string.not_enough_records));
                 } else {
                     mFuelContainerCardView.setVisibility(View.GONE);
                 }
@@ -249,18 +253,23 @@ public class MainFragment extends Fragment {
             mRecentRefuelsSecondMonthLabel.setText(secondMonth);
 
             if (position > 0) {
-                mDescriptionTextView.setText("Ładowanie...");
+                mDescriptionTextView.setText(getText(R.string.loading));
                 recentRefuelList.clear();
                 mRecentFuelAdapter.notifyDataSetChanged();
                 mFuelContainerCardView.setVisibility(View.VISIBLE);
 
                 mViewModel.getCarRefuelsByFuelType(((Car) parent.getSelectedItem()).getId(), ((Car) parent.getSelectedItem()).getFirstTank()).observe(MainFragment.this, firstTankObserver);
 
+                mRecentRefuelsFirstMonthEmpty.setText("");
+                mRecentRefuelsSecondMonthEmpty.setText("");
                 mViewModel.getCarRefuelsByMonth(((Car) parent.getSelectedItem()).getId(), firstMonthInt, firstYearInt).observe(MainFragment.this, new Observer<List<Refuel>>() {
                     @Override
                     public void onChanged(@Nullable List<Refuel> refuels) {
                         sumMonth(recentRefuelsFirstMonth, refuels, true);
                         mRecentRefuelsFirstMonthAdapter.notifyDataSetChanged();
+                        if(refuels.size() == 0) {
+                            mRecentRefuelsFirstMonthEmpty.setText(getString(R.string.no_records));
+                        }
                     }
                 });
 
@@ -269,6 +278,9 @@ public class MainFragment extends Fragment {
                     public void onChanged(@Nullable List<Refuel> refuels) {
                         sumMonth(recentRefuelsSecondMonth, refuels, false);
                         mRecentRefuelsSecondMonthAdapter.notifyDataSetChanged();
+                        if(refuels.size() == 0) {
+                            mRecentRefuelsSecondMonthEmpty.setText(getString(R.string.no_records));
+                        }
                     }
                 });
             }

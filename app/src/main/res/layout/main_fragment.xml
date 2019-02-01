@@ -27,7 +27,7 @@
             android:layout_below="@id/vehicle_spinner"
             android:theme="@style/AboveCardHeader"
             android:layout_marginTop="4dp"
-            android:text="Paliwo" />
+            android:text="@string/fuel" />
 
         <include layout="@layout/content_main_fuel_card" />
 
@@ -38,7 +38,7 @@
             android:layout_below="@id/main_content_fuel_container"
             android:theme="@style/AboveCardHeader"
             android:layout_marginTop="4dp"
-            android:text="Ostatnie wpisy" />
+            android:text="@string/recent_refuels" />
 
         <include layout="@layout/content_main_recent_refuels_card" />
 
@@ -49,7 +49,7 @@
             android:layout_below="@id/main_content_last_refuels_container"
             android:theme="@style/AboveCardHeader"
             android:layout_marginTop="4dp"
-            android:text="Podsumowanie" />
+            android:text="@string/summary" />
 
         <include layout="@layout/content_main_summary_card" />
 

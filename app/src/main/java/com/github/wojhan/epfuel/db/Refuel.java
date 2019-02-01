@@ -22,6 +22,9 @@ public class Refuel {
     @ColumnInfo(name = "fuel_type")
     private String type;
 
+    @ColumnInfo(name = "fuel")
+    private int fuel;
+
     @ColumnInfo(name = "counter")
     private int counter;
 
@@ -88,5 +91,13 @@ public class Refuel {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public int getFuel() {
+        return fuel;
+    }
+
+    public void setFuel(int fuel) {
+        this.fuel = fuel;
     }
 }
